@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   CButton,
@@ -12,11 +12,22 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
+  CFormFeedback,
+  CFormLabel,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 
 const Login = () => {
+  const [validated, setValidated] = useState(false)
+  const handleSubmit = (event) => {
+    const form = event.currentTarget
+    if (form.checkValidity() === false) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+    setValidated(true)
+  }
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -25,15 +36,32 @@ const Login = () => {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm>
+                  <CForm
+                    className="row g-3 needs-validation"
+                    noValidate
+                    validated={validated}
+                    onSubmit={handleSubmit}
+                  >
                     <h1>Login</h1>
                     <p className="text-body-secondary">Sign In to your account</p>
+                    <CFormLabel htmlFor="validationTooltipUsername"></CFormLabel>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
+                      <CFormInput
+                        type="text"
+                        id="validationTooltipUsername"
+                        required
+                        placeholder="Username"
+                        autoComplete="username"
+                        defaultValue=""
+                      />
+                      <CFormFeedback tooltip valid>
+                        Looks good!
+                      </CFormFeedback>
                     </CInputGroup>
+                    <CFormLabel htmlFor="validationTooltipPassword"></CFormLabel>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
                         <CIcon icon={cilLockLocked} />
@@ -42,11 +70,14 @@ const Login = () => {
                         type="password"
                         placeholder="Password"
                         autoComplete="current-password"
+                        id="validationTooltipPassword"
+                        required
+                        defaultValue=""
                       />
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
+                        <CButton type="submit" color="primary" className="px-4">
                           Login
                         </CButton>
                       </CCol>

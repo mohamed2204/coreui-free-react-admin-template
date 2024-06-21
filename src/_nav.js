@@ -44,6 +44,22 @@ const _nav = [
   },
   {
     component: CNavTitle,
+    name: 'SGCD',
+  },
+  {
+    component: CNavItem,
+    name: 'Courrier 1',
+    to: '/sgcd/courrier1',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Courrier 2',
+    to: '/sgcd/courrier2',
+    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavTitle,
     name: 'Components',
   },
   {
