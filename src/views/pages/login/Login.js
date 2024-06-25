@@ -20,14 +20,66 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 
 const Login = () => {
   const [validated, setValidated] = useState(false)
-  const handleSubmit = (event) => {
-    const form = event.currentTarget
+  const [details, setDetails] = useState({
+    username: '',
+    password: '',
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    // const name = e.target.name
+    // const value = e.target.value
+    setDetails((prev) => {
+      return { ...prev, [name]: value }
+    })
+  }
+
+  const submitHandler = (e) => {
+    const data = new FormData(e.target)
+    console.log('data', data.values())
+    console.log(e.target.values, 'h')
+    e.preventDefault()
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(details)
+
+    const form = e.currentTarget
+    console.log(form)
+    console.log(form.checkValidity() === false)
+
+    // const data = new FormData(form)
+    // console.log('data', data.values())
+    // console.log(e.target.values, 'hi')
+
     if (form.checkValidity() === false) {
-      event.preventDefault()
-      event.stopPropagation()
+      //e.preventDefault()
+      e.stopPropagation()
     }
     setValidated(true)
   }
+  /* const [loading, setLoading] = useState(false)
+  const [users, setUsers] = useState([])
+  const getUsers = useCallback((value = '') => {
+    setLoading(true)
+    fetch(`https://apitest.coreui.io/demos/users?first_name=${name}`)
+      .then((response) => response.json())
+      .then((result) => {
+        setUsers(
+          result.records.map((record) => {
+            return {
+              value: record.id,
+              label: record.first_name,
+            }
+          }),
+        )
+        setLoading(false)
+      })
+  }, [])
+  useEffect(() => {
+    getUsers()
+  }, [getUsers]) */
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -38,6 +90,8 @@ const Login = () => {
                 <CCardBody>
                   <CForm
                     className="row g-3 needs-validation"
+                    method="post"
+                    encType="multipart/form-data"
                     noValidate
                     validated={validated}
                     onSubmit={handleSubmit}
@@ -50,12 +104,14 @@ const Login = () => {
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
                       <CFormInput
+                        name="username"
                         type="text"
                         id="validationTooltipUsername"
                         required
                         placeholder="Username"
                         autoComplete="username"
                         defaultValue=""
+                        onChange={handleChange}
                       />
                       <CFormFeedback tooltip valid>
                         Looks good!
@@ -68,13 +124,26 @@ const Login = () => {
                       </CInputGroupText>
                       <CFormInput
                         type="password"
+                        name="password"
                         placeholder="Password"
                         autoComplete="current-password"
                         id="validationTooltipPassword"
                         required
                         defaultValue=""
+                        onChange={handleChange}
                       />
                     </CInputGroup>
+                    {/* <CInputGroup className="mb-4">
+                      <CMultiSelect
+                        label="Users"
+                        loading={loading}
+                        onFilterChange={(value) => getUsers(value)}
+                        options={users}
+                        text="Please select your user."
+                        search="external"
+                        virtualScroller
+                      />
+                    </CInputGroup> */}
                     <CRow>
                       <CCol xs={6}>
                         <CButton type="submit" color="primary" className="px-4">
