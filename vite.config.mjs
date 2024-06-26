@@ -39,6 +39,9 @@ export default defineConfig(() => {
       ],
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.scss'],
     },
+    define: {
+      'process.env': {},
+    },
     server: {
       port: 3000,
       proxy: {

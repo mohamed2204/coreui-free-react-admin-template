@@ -1,5 +1,4 @@
 import { React, useRef, useState } from 'react'
-import { useAuth } from '. /context/AuthContext'
 import {
   CButton,
   CCard,
@@ -15,6 +14,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
+import { useAuth } from '../../../context/AuthContext'
 
 const Register = () => {
   const emailRef = useRef()
@@ -27,6 +27,7 @@ const Register = () => {
 
   async function handleSubmit(e) {
     e.preventDefault()
+    console.log(passwordRef.current.value)
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError('Passwords do not match')
     }
@@ -36,6 +37,7 @@ const Register = () => {
       await signup(emailRef.current.value, passwordRef.current.value)
       navigate('/')
     } catch {
+      console.log('Failed to create an account')
       setError('Failed to create an account')
     }
     setLoading(false)
