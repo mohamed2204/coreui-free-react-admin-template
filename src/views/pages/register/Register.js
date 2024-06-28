@@ -78,7 +78,6 @@ const Register = () => {
                       id="password"
                       type="password"
                       ref={passwordRef}
-                      required
                       placeholder="Password"
                       autoComplete="new-password"
                     />
@@ -91,13 +90,12 @@ const Register = () => {
                       id="password-confirm"
                       type="password"
                       ref={passwordConfirmRef}
-                      required
                       placeholder="Repeat password"
                       autoComplete="new-password"
                     />
                   </CInputGroup>
                   <div className="d-grid">
-                    <CButton disabled={loading} color="success">
+                    <CButton type="submit" disabled={loading} color="success">
                       Create Account
                     </CButton>
                   </div>
