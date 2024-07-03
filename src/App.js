@@ -34,6 +34,26 @@ const App = () => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
+    /*     
+    <Router>
+    <AuthProvider>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        />
+        <Route path="/update-profile" element={<UpdateProfile />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+      </Routes>
+    </AuthProvider>
+  </Router> 
+  */
     <Router>
       <AuthProvider>
         <Suspense
@@ -44,10 +64,6 @@ const App = () => {
           }
         >
           <Routes>
-            <Route exact path="/register" name="Register Page" element={<Register />} />
-            <Route exact path="/login" name="Login Page" element={<Login />} />
-            <Route exact path="/404" name="Page 404" element={<Page404 />} />
-            <Route exact path="/500" name="Page 500" element={<Page500 />} />
             <Route
               path="*"
               name="Home"
@@ -57,6 +73,10 @@ const App = () => {
                 </RequireAuth>
               }
             />
+            <Route exact path="/register" name="Register Page" element={<Register />} />
+            <Route exact path="/login" name="Login Page" element={<Login />} />
+            <Route exact path="/404" name="Page 404" element={<Page404 />} />
+            <Route exact path="/500" name="Page 500" element={<Page500 />} />
           </Routes>
         </Suspense>
       </AuthProvider>
