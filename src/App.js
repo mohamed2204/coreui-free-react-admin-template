@@ -5,7 +5,8 @@ import { useSelector } from 'react-redux'
 import { CSpinner, useColorModes } from '@coreui/react'
 import './scss/style.scss'
 import AuthProvider from '../src/context/AuthContext'
-import RequireAuth from '../src/context/RequireAuth'
+// import RequireAuth from '../src/context/RequireAuth'
+import PrivateRoute from '../src/utils/PrivateRoute'
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
@@ -34,26 +35,19 @@ const App = () => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    /*     
-    <Router>
-    <AuthProvider>
+  /*   <Router>
       <Routes>
         <Route
-          path="/"
+          path="*"
           element={
-            <RequireAuth>
-              <Dashboard />
-            </RequireAuth>
+            // <RequireAuth>
+            <DefaultLayout />
+            // </RequireAuth>
           }
         />
-        <Route path="/update-profile" element={<UpdateProfile />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
-    </AuthProvider>
-  </Router> 
-  */
+    </Router> */
+
     <Router>
       <AuthProvider>
         <Suspense
@@ -68,9 +62,9 @@ const App = () => {
               path="*"
               name="Home"
               element={
-                <RequireAuth>
+                <PrivateRoute>
                   <DefaultLayout />
-                </RequireAuth>
+                </PrivateRoute>
               }
             />
             <Route exact path="/register" name="Register Page" element={<Register />} />

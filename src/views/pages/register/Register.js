@@ -14,13 +14,16 @@ import {
 import { Link, useNavigate } from 'react-router-dom'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
-import { useAuth } from '../../../context/AuthContext'
+// import { useAuth } from '../../../context/AuthContext'
+import AuthContext from '../../../../src/context/AuthContext'
 
 const Register = () => {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
-  const { signup } = useAuth()
+  // const { signup } = useAuth()
+  const { registerUser } = useContext(AuthContext)
+
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -34,8 +37,15 @@ const Register = () => {
     try {
       setError('')
       setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current.value)
-      navigate('/')
+      // await signup(emailRef.current.value, passwordRef.current.value)
+      // navigate('/')
+      // registerUser(email, username, password, password2)
+      registerUser(
+        emailRef.current.value,
+        'username',
+        passwordRef.current.value,
+        passwordRef.current.value,
+      )
     } catch {
       console.log('Failed to create an account')
       setError('Failed to create an account')

@@ -17,6 +17,7 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
+import { useAuth } from '../../../context/AuthContext'
 
 const Login = () => {
   const [validated, setValidated] = useState(false)
@@ -24,6 +25,8 @@ const Login = () => {
     username: '',
     password: '',
   })
+
+  const { login } = useAuth()
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -58,6 +61,14 @@ const Login = () => {
       e.stopPropagation()
     }
     setValidated(true)
+
+    const email = details.username
+    const password = details.password
+
+    email.length > 0 && login(email, password)
+
+    console.log(email)
+    console.log(password)
   }
   /* const [loading, setLoading] = useState(false)
   const [users, setUsers] = useState([])
