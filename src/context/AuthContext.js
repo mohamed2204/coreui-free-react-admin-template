@@ -144,7 +144,8 @@ const AuthProvider = ({ children }) => {
     setAuthTokens(null)
     setUser(null)
     localStorage.removeItem('authTokens')
-    history.push('/login')
+    // history.push('/login')
+    navigate('/login')
     swal.fire({
       title: 'YOu have been logged out...',
       icon: 'success',

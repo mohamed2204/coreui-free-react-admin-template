@@ -8,6 +8,7 @@ import {
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
+  CLink,
 } from '@coreui/react'
 import {
   cilBell,
@@ -24,7 +25,19 @@ import CIcon from '@coreui/icons-react'
 
 import avatar8 from './../../assets/images/avatars/8.jpg'
 
+import jwt_decode from 'jwt-decode'
+import { useAuth } from '../../context/AuthContext'
+
 const AppHeaderDropdown = () => {
+  const { User, logoutUser } = useAuth()
+  const token = localStorage.getItem('authTokens')
+
+  if (token) {
+    const decoded = jwt_decode(token)
+    var user_id = decoded.user_id
+    console.log(User.username)
+  }
+
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>
@@ -84,9 +97,15 @@ const AppHeaderDropdown = () => {
           </CBadge>
         </CDropdownItem>
         <CDropdownDivider />
-        <CDropdownItem href="#">
+        <CDropdownItem href="#" onClick={logoutUser}>
           <CIcon icon={cilLockLocked} className="me-2" />
-          Lock Account
+          Logout
+          {/* <a className="nav-link" onClick={logoutUser} style={{ cursor: 'pointer' }}>
+            Logout
+          </a> */}
+          {/* <CLink href="#" onClick={logoutUser}>
+            Logout
+          </CLink> */}
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
