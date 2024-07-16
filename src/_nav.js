@@ -49,13 +49,13 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Courrier 1',
-    to: '/sgcd/courrier1',
+    to: '/sgcd/docx',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Courrier 2',
-    to: '/sgcd/courrier2',
+    to: '/sgcd/docx',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
   },
   {
